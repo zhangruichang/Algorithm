@@ -79,6 +79,7 @@ LL MultMod(LL a,LL b,LL MOD)
     return ret;
 }
 int a[maxn], n, t, m;
+
 int main()
 {
 /*
@@ -87,12 +88,14 @@ int main()
     freopen ("out.txt" , "w" , stdout);
 #endif
 */
-    cin>>t;
-    for(int ti=1;ti<=t;ti++)
-    {
-        cin
-        printf("Case #%d:\n", ti);
-        cout
+    while(cin>>n){
+        for(int i=0;i<n;i++) cin>>a[i].fi>>a[i].se;
+        for(int i=0;i<(1<<n);i++){
+            int cnt=0;
+            for(int j=0;j<n;j++){
+                cnt+=((1<<j) && i);
+            }
+        }
     }
 	return 0;
 }

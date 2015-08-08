@@ -85,6 +85,7 @@ class Solution
 public:
     int HousePaint(vector<vector<int>> v){
         int n=v.size();
+        if(!n) return 0;
         int dp[n][3];
         for(int j=0;j<3;j++){
             dp[0][j]=v[0][j];
@@ -114,7 +115,7 @@ int main()
     //cout<<S.HousePaint(v)<<endl;
     srand (time(NULL));
     //unordered_set<int> us;
-    for(int i=0;i<=1000;){
+    for(int i=0;i<=100;){
         int len=i;
         cout<<"[";
         for(int i=0;i<len;i++){

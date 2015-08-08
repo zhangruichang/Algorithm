@@ -2,7 +2,25 @@
 Author: richard
 Contact: zhangruichang112@gmail.com
 */
-#include <bits/stdc++.h>
+#include<set>
+#include<map>
+#include<list>
+#include<cmath>
+#include<queue>
+#include<stack>
+#include<ctime>
+#include<cstdio>
+#include<string>
+#include<vector>
+#include<climits>
+#include<cstdlib>
+#include<cstring>
+#include<fstream>
+#include<sstream>
+#include<iostream>
+#include<algorithm>
+#include <unordered_set>
+#include <unordered_map>
 using namespace std;
 const int maxn = 1e6 + 10;
 typedef long long LL;
@@ -62,53 +80,16 @@ LL MultMod(LL a,LL b,LL MOD)
 }
 int a[maxn], n, t, m;
 
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
-
-struct TreeNode {
-  int val;
-  TreeNode *left;
-  TreeNode *right;
-  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
-
-class Solution {
-public:
-    int countNodes(TreeNode* root) {
-        if(!root) return 0;
-        TreeNode* p=root;
-        int lcnt=0;
-        while(p){
-            p=p->left;
-            lcnt++;
-        }
-        TreeNode* q=root;
-        int rcnt=0;
-        while(q){
-            q=q->left;
-            rcnt++;
-        }
-        if(lcnt==rcnt) return (1<<lcnt)-1;
-        p=root->left;
-        int lrcnt=1;
-        while(p){
-            p=p->right;
-            lrcnt++;
-        }
-        if(lrcnt==lcnt){
-            return (1<<(lcnt-1))+countNodes(root->right);
-        }else{
-            return countNodes(root->left)+(1<<(rcnt-1));
+void Print(vector<vector<int>> A){
+    int m=A.size(), n=A[0].size();
+    for(int i=0;i<=m+n-2;i++){
+        for(int j=0;j<=i;j++){
+            if(j>=m || i-j>=n) continue;
+            int k=i-j;
+            cout<<A[j][k]<<" ";
         }
     }
-};
+}
 
 int main()
 {
@@ -118,6 +99,7 @@ int main()
     freopen ("out.txt" , "w" , stdout);
 #endif
 */
-
+    vector<vector<int>> A={ {1,2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}};
+    Print(A);
 	return 0;
 }
