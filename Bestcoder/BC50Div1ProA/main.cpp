@@ -22,7 +22,7 @@ Contact: zhangruichang112@gmail.com
 //#include <unordered_set>
 //#include <unordered_map>
 using namespace std;
-const int maxn = 1e6 + 10;
+const int maxn = 100 + 10;
 typedef long long LL;
 typedef unsigned long long ULL;
 //int, -2^31~2^31-1    -2.1*10^9~2.1*10^9 (-2147483648-2147483647)
@@ -78,7 +78,8 @@ LL MultMod(LL a,LL b,LL MOD)
     }
     return ret;
 }
-int a[maxn], n, t, m;
+pii a[maxn];
+int n, t, m;
 
 int main()
 {
@@ -90,12 +91,24 @@ int main()
 */
     while(cin>>n){
         for(int i=0;i<n;i++) cin>>a[i].fi>>a[i].se;
+        int ans=0;
         for(int i=0;i<(1<<n);i++){
             int cnt=0;
             for(int j=0;j<n;j++){
-                cnt+=((1<<j) && i);
+                cnt+=(((1<<j) & i)!=0);
             }
+            if(cnt!=4) continue;
+            vector<pii> v;
+            for(int j=0;j<n;j++){
+                if( (1<<j) & i){
+                    v.push_back(a[j]);
+                }
+            }
+            sort(v.begin(), v.end());
+            if(v[0].fi==v[1].fi && v[2].fi== v[3].fi && v[0].fi!=v[2].fi && (v[0].se-v[1].se) ==
+               (v[2].se- v[3].se) && (v[0].se-v[1].se) ) ans++;
         }
+        cout<<ans<<endl;
     }
 	return 0;
 }
