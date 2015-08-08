@@ -88,13 +88,13 @@ int main()
 #endif
 */
     while(cin>>n){
-        LL ans=0;
-        for(int i=0;i<n;i++){
-            dp[i]=1;
-            for(int j=0;j<i-2;j++) dp[i]+=dp[j];
-            ans+=dp[i];
+        dp[0]=1;
+        dp[1]=2;
+        dp[2]=3;
+        for(int i=3;i<n;i++){
+            dp[i]=dp[i-1]+dp[i-3]+1;
         }
-        cout<<ans<<endl;
+        cout<<dp[n-1]<<endl;
     }
 	return 0;
 }
