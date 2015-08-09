@@ -79,59 +79,36 @@ LL MultMod(LL a,LL b,LL MOD)
     return ret;
 }
 int a[maxn], n, t, m;
-
-class Solution
-{
-public:
-    int HousePaint(vector<vector<int>> v){
-        int n=v.size();
-        if(!n) return 0;
-        int dp[n][3];
-        for(int j=0;j<3;j++){
-            dp[0][j]=v[0][j];
-        }
-        for(int i=1;i<n;i++){
-            for(int j=0;j<3;j++){
-                dp[i][j]=INT_MAX;
-                for(int k=1;k<=2;k++){
-                    dp[i][j]=min(dp[i][j], dp[i-1][(j+k)%3] + v[i][j]);
-                }
-            }
-        }
-        return min( min(dp[n-1][0], dp[n-1][1]), dp[n-1][2]);
-    }
-} S;
-
-
 int main()
 {
-
+/*
 #ifndef ONLINE_JUDGE
-    //freopen ("in.txt" , "r" , stdin);
+    freopen ("in.txt" , "r" , stdin);
     freopen ("out.txt" , "w" , stdout);
 #endif
-
-    //vector<vector<int>> v={{1,2,3},{4,5,6},{7,8,9}};
-    //cout<<S.HousePaint(v)<<endl;
-    srand (time(NULL));
-    //unordered_set<int> us;
-    for(int i=0;i<=100;){
-        int len=i;
-        cout<<"[";
-        for(int i=0;i<len;i++){
-            if(i) cout<<",";
-            cout<<"[";
-            for(int j=0;j<3;j++){
-                if(!j){
-                    cout<<rand()%20+1;
-                }else{
-                    cout<<","<<rand()%20+1;
-                }
+*/
+    int x[3], y[3];
+    cin>>x[0]>>x[1]>>x[2];
+    sort(x, x+3);
+    string s;
+    cin>>s; int cr=0, cb=0, cy=0, maxcnt=0;;
+    for(int i=0;i<s.size();i++){
+        if(s[i]=='R') cr++;
+        else if(s[i]=='B') cb++;
+        else cy++;
+        y[0]=abs(cr-cb), y[1]=abs(cr-cy), y[2]=abs(cb-cy);
+        sort(y, y+3);
+        bool ok=0;
+        for(int i=0;i<3;i++){
+            if(x[i]!=y[i]) {
+                ok=1; break;
             }
-            cout<<"]";
         }
-        cout<<"]"<<endl;;
-        i++;
+        maxcnt=max(maxcnt, cr+cy+cb);
+        if(!ok) {
+            cr=cb=cy=0;
+        }
     }
+    cout<<maxcnt<<endl;
 	return 0;
 }

@@ -22,7 +22,7 @@ Contact: zhangruichang112@gmail.com
 #include <unordered_set>
 #include <unordered_map>
 using namespace std;
-const int maxn = 1e6 + 10;
+const int maxn = 2e6 + 10;
 typedef long long LL;
 typedef unsigned long long ULL;
 //int, -2^31~2^31-1    -2.1*10^9~2.1*10^9 (-2147483648-2147483647)
@@ -78,60 +78,38 @@ LL MultMod(LL a,LL b,LL MOD)
     }
     return ret;
 }
-int a[maxn], n, t, m;
-
-class Solution
-{
-public:
-    int HousePaint(vector<vector<int>> v){
-        int n=v.size();
-        if(!n) return 0;
-        int dp[n][3];
-        for(int j=0;j<3;j++){
-            dp[0][j]=v[0][j];
-        }
-        for(int i=1;i<n;i++){
-            for(int j=0;j<3;j++){
-                dp[i][j]=INT_MAX;
-                for(int k=1;k<=2;k++){
-                    dp[i][j]=min(dp[i][j], dp[i-1][(j+k)%3] + v[i][j]);
-                }
-            }
-        }
-        return min( min(dp[n-1][0], dp[n-1][1]), dp[n-1][2]);
-    }
-} S;
-
-
+int  n, t, m;
 int main()
 {
-
+/*
 #ifndef ONLINE_JUDGE
-    //freopen ("in.txt" , "r" , stdin);
+    freopen ("in.txt" , "r" , stdin);
     freopen ("out.txt" , "w" , stdout);
 #endif
-
-    //vector<vector<int>> v={{1,2,3},{4,5,6},{7,8,9}};
-    //cout<<S.HousePaint(v)<<endl;
-    srand (time(NULL));
-    //unordered_set<int> us;
-    for(int i=0;i<=100;){
-        int len=i;
-        cout<<"[";
-        for(int i=0;i<len;i++){
-            if(i) cout<<",";
-            cout<<"[";
-            for(int j=0;j<3;j++){
-                if(!j){
-                    cout<<rand()%20+1;
-                }else{
-                    cout<<","<<rand()%20+1;
-                }
+*/
+    int n ,t; char s[maxn];
+    cin>>t;
+    while(t--){
+        scanf("%d%s", &n ,s);
+        //puts(s);
+        int n=strlen(s);
+        bool ok=0;int cnt=0;
+        vector<pair<char, int>> v;
+        for(int i=0;i<n;i++){
+            if(!i || s[i]==s[i-1]) cnt++;
+            else{
+                v.push_back({s[i-1], cnt});
+                cnt=1;
             }
-            cout<<"]";
         }
-        cout<<"]"<<endl;;
-        i++;
+        v.push_back({s[n-1], cnt});
+        for(int i=1;i+1<v.size();i++){
+            if( (v[i-1].fi+1)== v[i].fi && (v[i].fi+1)== v[i+1].fi &&
+               v[i-1].se >= v[i].se && v[i].se<= v[i+1].se) {
+                    ok=1;break;
+            }
+        }
+        puts(ok ? "YES" : "NO");
     }
 	return 0;
 }
