@@ -81,6 +81,10 @@ LL MultMod(LL a,LL b,LL MOD)
 pii a[maxn];
 int n, t, m;
 
+int dist(pii p1, pii p2){
+    return (p1.fi-p2.fi)*(p1.fi-p2.fi)+(p1.se-p2.se)*(p1.se-p2.se);
+}
+
 int main()
 {
 /*
@@ -104,9 +108,14 @@ int main()
                     v.push_back(a[j]);
                 }
             }
-            sort(v.begin(), v.end());
-            if(v[0].fi==v[1].fi && v[2].fi== v[3].fi && v[0].fi!=v[2].fi && (v[0].se-v[1].se) ==
-               (v[2].se- v[3].se) && (v[0].se-v[1].se) ) ans++;
+            vector<int> d;
+            for(int i=0;i<4;i++){
+                for(int j=i+1;j<4;j++){
+                    d.push_back(dist(v[i], v[j]));
+                }
+            }
+            sort(d.begin(), d.end());
+            if(d[0]==d[1] && d[1]==d[2] &&d[2]==d[3] &&2*d[3]==d[4] && d[4]==d[5]) ans++;
         }
         cout<<ans<<endl;
     }
