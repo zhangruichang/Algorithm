@@ -19,8 +19,8 @@ Contact: zhangruichang112@gmail.com
 #include<sstream>
 #include<iostream>
 #include<algorithm>
-#include <unordered_set>
-#include <unordered_map>
+//#include <unordered_set>
+//#include <unordered_map>
 using namespace std;
 const int maxn = 1e6 + 10;
 typedef long long LL;
@@ -78,46 +78,23 @@ LL MultMod(LL a,LL b,LL MOD)
     }
     return ret;
 }
-int a[maxn],l[maxn], r[maxn], n, t, m;
+__int64 dp[110][110], n, t, m;
 int main()
 {
-
+/*
 #ifndef ONLINE_JUDGE
     freopen ("in.txt" , "r" , stdin);
     freopen ("out.txt" , "w" , stdout);
 #endif
-
-    while(cin>>n){
-        for(int i=0;i<n;i++) a[i]=getint();
-        stack<int> s1;
-        for(int i=0;i<n;){
-            if(s1.empty()){
-                l[i]=i;
-                s1.push(i++);
-            }else if(a[s1.top()]>a[i]){
-                l[i]=i-s1.top()-1;
-                s1.push(i++);
-            }else{
-                s1.pop();
-            }
-        }
-        stack<int> s2;
-        for(int i=n-1;i>=0;){
-            if(s2.empty()){
-                r[i]=n-i-1;
-                s2.push(i--);
-            }else if(a[s2.top()]>a[i]){
-                r[i]=s2.top()-i-1;
-                s2.push(i--);
-            }else{
-                s2.pop();
-            }
-        }
-        LL ans=0;
-        for(int i=0;i<n;i++){
-            ans+=(LL)(l[i]+1)*(r[i]+1)*a[i];
-        }
-        cout<<ans<<endl;
+*/
+    for(int i=0;i<=100;i++) dp[i][0]=1;
+    for(int i=1;i<=100;i++) for(int j=1;j<=100;j++){
+        dp[i][j]=dp[i-1][j-1] + dp[i-1][j];
+    }
+    while(cin>>n>>m){
+        if(!n && !m) break;
+        printf("%I64d things taken %I64d at a time is %I64d exactly.\n", n, m, dp[n][m]);;
+        //cout<<dp[n][m]<<endl;
     }
 	return 0;
 }
