@@ -90,20 +90,34 @@ int main()
     string s, y;int x;
     while(cin>>n>>m){
         cin>>s;
-        for(int i=0;i<m;i++){
-            cin>>x>>y;x--;
-            s[x]=y[0];
-            int ans=0, cnt=0;
-            for(int j=0;j<n;j++){
-                if(s[j]=='.') cnt++;
-                else{
-                    if(cnt>0){
-                        ans+=cnt-1;
-                        cnt=0;
-                    }
+        int cnt=0, ans=0;
+        for(int i=0;i<n;i++){
+            if(s[i]=='.') cnt++;
+            else{
+                if(cnt>0){
+                    ans+=cnt-1;
+                    cnt=0;
                 }
             }
-            if(cnt>0) ans+=cnt-1;
+        }
+        if(cnt>0) ans+=cnt-1;
+        for(int i=0;i<m;i++){
+            int x;string y;
+            cin>>x>>y;x--;
+            if(y[0]=='.'){
+                if(s[x]=='.');
+                else{
+                    ans+=(x-1>=0 && s[x-1]=='.');
+                    ans+=(x+1<n && s[x+1]=='.');
+                }
+            }else{
+                if(s[x]!='.');
+                else{
+                    ans-=(x-1>=0 && s[x-1]=='.');
+                    ans-=(x+1<n && s[x+1]=='.');
+                }
+            }
+            s[x]=y[0];
             cout<<ans<<endl;
         }
     }
