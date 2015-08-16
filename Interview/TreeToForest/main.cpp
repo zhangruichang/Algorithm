@@ -80,6 +80,8 @@ LL MultMod(LL a,LL b,LL MOD)
 }
 int a[maxn], n, t, m;
 
+//15min finished coding
+
 struct Node{
   int x, cnt;
   vector<Node*> child;

@@ -80,36 +80,24 @@ LL MultMod(LL a,LL b,LL MOD)
 }
 int a[maxn], n, t, m;
 
-class Solution
-{
+class Solution{
 public:
-    int minCostII(vector<vector<int>> v){
-        //assume color k>1
-        int n=v.size();
-        if(!n) return 0;
-        int k=v[0].size();
-        int dp[2][k];
-        for(int j=0;j<k;j++){
-            dp[0][j]=v[0][j];
-        }
-        for(int i=1;i<n;i++){
-            for(int j=0;j<k;j++){
-                dp[1][j]=INT_MAX;
-                for(int kk=1;kk<=k-1;kk++){
-                    dp[1][j]=min(dp[1][j], dp[0][(j+kk)%k] + v[i][j]);
-                }
-            }
-            for(int j=0;j<k;j++){
-                dp[0][j]=dp[1][j];
-            }
-        }
-        int ans=INT_MAX;
-        for(int j=0;j<k;j++){
-            ans=min(ans, dp[0][j]);
-        }
-        return ans;
+  int fencepainter(int n, int k){
+    //dp[i]=(k-1)*(dp[i-1]+dp[i-2]), k>=3
+    //dp[1]=k dp[2]=k*k
+    if(k==0 && n>=1) return 0;
+    if(n==0) return 1;
+    if(n==1) return k;
+    if(n==2) return k*k;
+    int backtwo=k, backone=k*k, cur;
+    for(int i=3;i<=n;i++){
+      cur=(k-1) * (backtwo+backone);
+      backtwo=backone;
+      backone=cur;
     }
-} S;
+    return cur;
+  }
+};
 
 int main()
 {
@@ -119,12 +107,6 @@ int main()
     freopen ("out.txt" , "w" , stdout);
 #endif
 */
-    cin>>t;
-    for(int ti=1;ti<=t;ti++)
-    {
-        cin
-        printf("Case #%d:\n", ti);
-        cout
-    }
+
 	return 0;
 }

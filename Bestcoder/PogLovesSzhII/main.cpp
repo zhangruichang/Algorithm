@@ -78,39 +78,7 @@ LL MultMod(LL a,LL b,LL MOD)
     }
     return ret;
 }
-int a[maxn], n, t, m;
-
-class Solution
-{
-public:
-    int minCostII(vector<vector<int>> v){
-        //assume color k>1
-        int n=v.size();
-        if(!n) return 0;
-        int k=v[0].size();
-        int dp[2][k];
-        for(int j=0;j<k;j++){
-            dp[0][j]=v[0][j];
-        }
-        for(int i=1;i<n;i++){
-            for(int j=0;j<k;j++){
-                dp[1][j]=INT_MAX;
-                for(int kk=1;kk<=k-1;kk++){
-                    dp[1][j]=min(dp[1][j], dp[0][(j+kk)%k] + v[i][j]);
-                }
-            }
-            for(int j=0;j<k;j++){
-                dp[0][j]=dp[1][j];
-            }
-        }
-        int ans=INT_MAX;
-        for(int j=0;j<k;j++){
-            ans=min(ans, dp[0][j]);
-        }
-        return ans;
-    }
-} S;
-
+LL a[maxn], n, t, m, p;
 int main()
 {
 /*
@@ -119,12 +87,19 @@ int main()
     freopen ("out.txt" , "w" , stdout);
 #endif
 */
-    cin>>t;
-    for(int ti=1;ti<=t;ti++)
-    {
-        cin
-        printf("Case #%d:\n", ti);
-        cout
+  while(cin>>n>>p){
+    for(LL i=0;i<n;i++){
+      scanf("%lld", &a[i]);
+      a[i]%=p;
     }
+    sort(a, a+n);
+    LL ans=(a[0]+a[1])%p;
+    for(LL i=0;i<n;i++){
+      LL index=lower_bound(a+i+1, a+n, p-a[i])-a;
+      if(i < index-1 && index-1 < n) ans=max(ans, (a[i]+a[index-1])%p);
+      if(i<n-1) ans=max(ans, (a[i]+a[n-1])%p);
+    }
+    cout<<ans<<endl;
+  }
 	return 0;
 }
