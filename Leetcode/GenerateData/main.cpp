@@ -42,15 +42,35 @@ void generatetwointeger(){
     cout<<n<<endl<<k<<endl;
   }
 }
+void generatestr(){
+  for(int i=0;i<=100;i++){
+    cout<<"\"";
+    for(int j=0;j<i;j++){
+      int ch=rand()%26+'a';
+      putchar(ch);
+    }
+    puts("\"");
+  }
+}
+
+void adddouble(){
+  string str;
+  srand (time(NULL));
+  while(cin>>str){
+    double x=rand()%40/7.0000;
+    cout<<str<<endl;
+    printf("%.6f\n", x);
+  }
+}
 
 int main()
 {
 
 #ifndef ONLINE_JUDGE
-    //freopen ("in.txt" , "r" , stdin);
-    freopen ("FencePaint.txt" , "w" , stdout);
+    freopen ("ClosestBST.txt" , "r" , stdin);
+    freopen ("ClosestBSTin.txt" , "w" , stdout);
 #endif
-  generatetwointeger();
+  adddouble();
 
 
 	return 0;
