@@ -21,7 +21,8 @@ typedef vector<int> vi;
 class Solution{
 
 public:
-  vector<TreeNode*> PrintVertically(TreeNode* root){
+  vector<TreeNode*> printVertically(TreeNode* root){
+    if(!root) return {};
     int order=1, width=0;
     queue<Node> q;
     vector<Node> v;

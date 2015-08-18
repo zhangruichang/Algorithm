@@ -86,14 +86,37 @@ void adddouble(){
   }
 }
 
+void generate_matrix(){
+  srand (time(NULL));
+  for(int len=0;len<=100;len++){
+      cout<<"[";
+      int n=rand()%20+1;
+      if(!len) n=0;
+      for(int i=0;i<len;i++){
+          if(i) cout<<",";
+          cout<<"[";
+          for(int j=0;j<n;j++){
+              if(j) cout<<",";
+              int x=rand()%3, y;
+              if(x==0) y=-1;
+              else if(x==1) y=0;
+              else y=INT_MAX;
+              cout<<y;
+          }
+          cout<<"]";
+      }
+      cout<<"]"<<endl;;
+  }
+}
+
 int main()
 {
 
 #ifndef ONLINE_JUDGE
-    freopen ("ClosestBST.txt" , "r" , stdin);
-    freopen ("ClosestBSTIIin.txt" , "w" , stdout);
+    //freopen ("ClosestBST.txt" , "r" , stdin);
+    freopen ("PoliceandRooms.txt" , "w" , stdout);
 #endif
-  adddouble();
+  generate_matrix();
 
 
 	return 0;

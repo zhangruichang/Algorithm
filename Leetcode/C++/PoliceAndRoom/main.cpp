@@ -64,14 +64,14 @@ LL MultMod(LL a,LL b,LL MOD)
 int a[maxn], n, t, m;
 
 class Solution{
-public:
+private:
   int dx[4]={-1, 1, 0, 0}, dy[4]={0, 0, -1, 1};
   bool outrange(int i, int j){
     return i<0 || i>=m || j<0 || j>=n;
   }
   int m, n;
-private:
-  void police_and_rooms(vector<vector<int>>& rooms){
+public:
+  void policeAndRooms(vector<vector<int>>& rooms){
     m=rooms.size();
     if(!m) return;
     n=rooms[0].size();
