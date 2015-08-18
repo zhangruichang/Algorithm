@@ -53,6 +53,21 @@ void generatestr(){
   }
 }
 
+vector<string> split(string s, char split){
+  vector<string> ans;
+  int start=0, n=s.size();
+  for(int i=0;i<s.size();i++){
+    if(s[i]==split){
+      if(i!=start)
+        ans.push_back(s.substr(start, i-start));
+      start=i+1;
+    }
+  }
+  if(n!=start)
+    ans.push_back(s.substr(start, n-start));
+  return ans;
+}
+
 void adddouble(){
   string str;
   srand (time(NULL));
@@ -60,6 +75,14 @@ void adddouble(){
     double x=rand()%40/7.0000;
     cout<<str<<endl;
     printf("%.6f\n", x);
+    string cur=str.substr(1, str.size()-2);
+    auto strlist=split(cur, ',');
+    int cnt=0;
+    for(auto e: strlist){
+      if(e!="null") cnt++;
+    }
+    if(!cnt) cout<<0<<endl;
+    else cout<<rand()%cnt+1<<endl;
   }
 }
 
@@ -68,7 +91,7 @@ int main()
 
 #ifndef ONLINE_JUDGE
     freopen ("ClosestBST.txt" , "r" , stdin);
-    freopen ("ClosestBSTin.txt" , "w" , stdout);
+    freopen ("ClosestBSTIIin.txt" , "w" , stdout);
 #endif
   adddouble();
 
