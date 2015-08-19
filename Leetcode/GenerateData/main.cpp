@@ -68,7 +68,7 @@ vector<string> split(string s, char split){
   return ans;
 }
 
-void adddouble(){
+void adddouble_k(){
   string str;
   srand (time(NULL));
   while(cin>>str){
@@ -83,6 +83,16 @@ void adddouble(){
     }
     if(!cnt) cout<<0<<endl;
     else cout<<rand()%cnt+1<<endl;
+  }
+}
+
+void adddouble(){
+  string str;
+  srand (time(NULL));
+  while(cin>>str){
+    double x=rand()%40/7.0000;
+    cout<<str<<endl;
+    printf("%.6f\n", x);
   }
 }
 
@@ -113,10 +123,10 @@ int main()
 {
 
 #ifndef ONLINE_JUDGE
-    //freopen ("ClosestBST.txt" , "r" , stdin);
-    freopen ("PoliceandRooms.txt" , "w" , stdout);
+    freopen ("ClosestBST.txt" , "r" , stdin);
+    freopen ("ClosestBSTin.txt" , "w" , stdout);
 #endif
-  generate_matrix();
+  adddouble();
 
 
 	return 0;

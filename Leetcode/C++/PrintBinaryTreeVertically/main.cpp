@@ -21,7 +21,7 @@ typedef vector<int> vi;
 class Solution{
 
 public:
-  vector<TreeNode*> printVertically(TreeNode* root){
+  vector<vector<int>> printVertically(TreeNode* root){
     if(!root) return {};
     int order=1, width=0;
     queue<Node> q;
@@ -34,10 +34,17 @@ public:
       if(cur.p->right) q.push({cur.width+1, cur.order+1, cur.p->right});
     }
     sort(v.begin(), v.end(), comp);
-    vector<TreeNode*> ans;
-    for(auto e: v){
-      ans.push_back(e.p);
+    vector<vector<int>> ans;
+    vector<int> level;
+    for(int i=0;i<v.size();i++){
+      if(i && v[i].width!=v[i-1].width){
+          ans.push_back(level);
+          level={v[i].p->val};
+      }else{
+        level.push_back(v[i].p->val);
+      }
     }
+    if(!level.empty()) ans.push_back(level);
     return ans;
   }
 

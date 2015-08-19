@@ -72,14 +72,14 @@ struct TreeNode{
 
 class Solution{
   public:
-    vector<TreeNode*> closestBSTII(TreeNode*root, double value, int k){//k<=n, n is number of tree nodes
+    vector<int> closestBSTII(TreeNode*root, double value, int k){//k<=n, n is number of tree nodes
       if(!root) return {};
       v.clear();value_=value;
       dfs(root);
       sort(v.begin(), v.end(), comp);
-      vector<TreeNode*> ans;
+      vector<int> ans;
       for(int i=0;i<k;i++){
-        ans.push_back(v[i].p);
+        ans.push_back(v[i].p->val);
       }
       return ans;
     }

@@ -9,19 +9,19 @@ struct TreeNode{
 
 class Solution{
   public:
-    TreeNode* closestBST(TreeNode*root, double value){
-        if(!root) return NULL;
-        if(value==(double)(root->val)) return root;
+    int closestBST(TreeNode*root, double value){
+        if(!root) return 0;
+        if(value==(double)(root->val)) return root->val;
         else if(value<(double)(root->val)){
             auto Left=closestBST(root->left, value);
-            if(!Left) return root;
-            if(abs((double)(Left->val)-value)<abs((double)(root->val)-value)) return Left;
-            else return root;
+            if(!Left) return root->val;
+            if(abs((double)Left-value)<abs((double)(root->val)-value)) return Left;
+            else return root->val;
         }else{
             auto Right=closestBST(root->right, value);
-            if(!Right) return root;
-            if(abs((double)(Right->val)-value)<abs((double)(root->val)-value)) return Right;
-            else return root;
+            if(!Right) return root->val;
+            if(abs((double)Right-value)<abs((double)(root->val)-value)) return Right;
+            else return root->val;
         }
     }
 };
