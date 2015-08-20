@@ -84,21 +84,22 @@ bool v[60000000];
 class Solution {
 public:
     struct Node{
-        int x;
+        LL x;
         bool operator<(Node n)const{
             return x>n.x;
         }
     };
     int nthUglyNumber(int n) {
         priority_queue<Node> pq;
+        unordered_set<LL> us={1};
         pq.push({1});
-        memset(v, 0, sizeof v);
-        v[1]=1;
-        for(int i=1;i<n;i++){
+        //memset(v, 0, sizeof v);
+        //us={1};
+        for(LL i=1;i<n;i++){
             auto cur=pq.top();pq.pop();
-            if(!v[cur.x*2]) pq.push({cur.x*2}), v[cur.x*2]=1;
-            if(!v[cur.x*3]) pq.push({cur.x*3}), v[cur.x*3]=1;
-            if(!v[cur.x*5]) pq.push({cur.x*5}), v[cur.x*5]=1;
+            if(!us.count(cur.x*2)) pq.push({cur.x*2}), us.insert(cur.x*2);
+            if(!us.count(cur.x*3)) pq.push({cur.x*3}), us.insert(cur.x*3);
+            if(!us.count(cur.x*5)) pq.push({cur.x*5}), us.insert(cur.x*5);
         }
         return pq.top().x;
     }
@@ -112,12 +113,6 @@ int main()
     freopen ("out.txt" , "w" , stdout);
 #endif
 */
-    cin>>t;
-    for(int ti=1;ti<=t;ti++)
-    {
-        cin
-        printf("Case #%d:\n", ti);
-        cout
-    }
+
 	return 0;
 }
