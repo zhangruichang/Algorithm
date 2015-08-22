@@ -33,6 +33,7 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="main.cpp" />
+		<Unit filename="set.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
