@@ -19,8 +19,8 @@ Contact: zhangruichang112@gmail.com
 #include<sstream>
 #include<iostream>
 #include<algorithm>
-#include <unordered_set>
-#include <unordered_map>
+//#include <unordered_set>
+//#include <unordered_map>
 using namespace std;
 const int maxn = 1e6 + 10;
 typedef long long LL;
@@ -80,7 +80,8 @@ LL MultMod(LL a,LL b,LL MOD)
 }
 int a[maxn], n, t, m;
 string name[1000], surname[1000];
-bool v1[1000], v2[1000];
+int cnt1[1000], cnt2[1000];
+bool v[1000];
 int main()
 {
 /*
@@ -90,36 +91,28 @@ int main()
 #endif
 */
   while(cin>>n){
-    for(int i=0;i<n;i++) cin>>name[i];
-    for(int i=0;i<n;i++) cin>>surname[i];
+    memset(cnt1, 0 ,sizeof cnt1);
+    memset(cnt2, 0 ,sizeof cnt2);
+    memset(v, 0 ,sizeof v);
+    for(int i=0;i<n;i++) cin>>name[i], cnt1[name[i][0]]++;
+    for(int i=0;i<n;i++) cin>>surname[i], cnt2[surname[i][0]]++;
     sort(name, name+n);
     sort(surname, surname+n);
-    memset(v1, 0 ,sizeof v1);
-    memset(v2, 0 ,sizeof v2);
-    vector<pair<string, string>> vp(n, {});
     for(int i=0;i<n;i++){
-      for(int j=0;j<n;j++){
-        if(!v2[j] && surname[j][0]==name[i][0]){
-          vp.push_back({name[i], surname[j]});
-          v2[j]=1;v1[i]=1;
+      int j;
+      for(j=0;j<n;j++){
+        if(!v[j] &&
+        ( cnt2[surname[j][0]] > cnt1[surname[j][0]] || name[i][0]==surname[j][0] ) &&
+        ( surname[j][0] >= name[i][0] || cnt1[name[i][0]] > cnt2[name[i][0]] ))
           break;
-        }
       }
+      v[j]=1;
+      cnt1[name[i][0]]--;
+      cnt2[surname[j][0]]--;
+      if(i) cout<<", ";
+      cout<<name[i]<<" "<<surname[j];
     }
-    for(int i=0;i<n;i++){
-      if(v1[i]) continue;
-      for(int j=0;j<n;j++){
-        if(v2[j]) continue;
-        vp.push_back({name[i], surname[j]});
-        v2[j]=1;v1[i]=1;
-      }
-    }
-    //sort(vp.begin(), vp.end());
-    for(int i=0;i<n;i++){
-      cout<<vp[i].fi<<" "<<vp[i].se;
-      if(i<n-1) cout<<", ";
-      else puts("");
-    }
+    cout<<endl;
   }
 	return 0;
 }
