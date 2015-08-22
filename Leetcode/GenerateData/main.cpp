@@ -119,14 +119,31 @@ void generate_matrix(){
   }
 }
 
+void generate_vectorstring(){
+  srand(time(NULL));
+  for(int len=0;len<=100;len++){
+    cout<<"[";
+    int n=rand()%20+1;
+    for(int i=0;i<n;i++){
+      if(i) cout<<",";
+      cout<<"\"";
+      int len=rand()%10+1;
+      for(int j=0;j<len;j++){
+        cout<<char(rand()%26+'a');
+      }
+      cout<<"\"";
+    }
+    cout<<"]\n";
+  }
+}
 int main()
 {
 
 #ifndef ONLINE_JUDGE
-    freopen ("ClosestBST.txt" , "r" , stdin);
-    freopen ("ClosestBSTin.txt" , "w" , stdout);
+    //freopen ("ClosestBST.txt" , "r" , stdin);
+    freopen ("decodeDict.txt" , "w" , stdout);
 #endif
-  adddouble();
+  generate_vectorstring();
 
 
 	return 0;
