@@ -10,21 +10,23 @@ struct TreeNode{
 
 class Solution{
   public:
-    int closestBST(TreeNode*root, double value){
-        //assume INT_MIN not occur in tree
-        if(!root) return INT_MIN;
-        if(value==(double)(root->val)) return root->val;
+    TreeNode* dfs(TreeNode*root, double value){
+        if(!root) return nullptr;
+        if(value==(double)(root->val)) return root;
         else if(value<(double)(root->val)){
-            auto Left=closestBST(root->left, value);
-            if(Left==INT_MIN) return root->val;
-            if(abs((double)Left-value)<abs((double)(root->val)-value)) return Left;
-            else return root->val;
+            auto Left=dfs(root->left, value);
+            if(!Left) return root;
+            if(abs((double)Left->val-value)<abs((double)(root->val)-value)) return Left;
+            else return root;
         }else{
-            auto Right=closestBST(root->right, value);
-            if(Right==INT_MIN) return root->val;
-            if(abs((double)Right-value)<abs((double)(root->val)-value)) return Right;
-            else return root->val;
+            auto Right=dfs(root->right, value);
+            if(!Right) return root;
+            if(abs((double)Right->val-value)<abs((double)(root->val)-value)) return Right;
+            else return root;
         }
+    }
+    int closestBST(TreeNode* root, double value){
+      return dfs(root, value)->val;
     }
 };
 

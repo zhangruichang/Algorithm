@@ -94,12 +94,18 @@ int main()
     {
         for(int i=1;i<=n;i++) Edge[i].clear();
         memset(virus, 0, sizeof virus);
-        memset(indegree, 0, sizeof indegree);
         for(int i=1;i<=k;i++) cin>>x, virus[x]=1;
         for(int i=1;i<=m;i++)
         {
             cin>>u>>v;
-            Edge[u].push_back(v), indegree[v]++;
+            Edge[u].push_back(v);
+            //Edge[v].push_back(u)
+        }
+        memset(indegree, 0, sizeof indegree);
+        for(int i=1;i<=n;i++)
+        {
+            for(auto e: Edge[i])
+                indegree[e]++;
         }
         queue<int> q;
         for(int i=1;i<=n;i++)

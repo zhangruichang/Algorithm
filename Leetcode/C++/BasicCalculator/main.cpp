@@ -2,7 +2,25 @@
 Author: richard
 Contact: zhangruichang112@gmail.com
 */
-#include <bits/stdc++.h>
+#include<set>
+#include<map>
+#include<list>
+#include<cmath>
+#include<queue>
+#include<stack>
+#include<ctime>
+#include<cstdio>
+#include<string>
+#include<vector>
+#include<climits>
+#include<cstdlib>
+#include<cstring>
+#include<fstream>
+#include<sstream>
+#include<iostream>
+#include<algorithm>
+#include <unordered_set>
+#include <unordered_map>
 using namespace std;
 const int maxn = 1e6 + 10;
 typedef long long LL;
@@ -61,73 +79,38 @@ LL MultMod(LL a,LL b,LL MOD)
     return ret;
 }
 int a[maxn], n, t, m;
-int stoi(string s)
-{
-    int num=0;
-    for(auto e: s) num=num*10+e-'0';
-    return num;
-}
+
 class Solution {
 public:
-    string Pri[5]={"=<<<?",
-    ">>><>",
-    ">>><>",
-    "?<<<=",
-    ">>>?>"};
-    int index(char op)
-    {
-        if(op=='#') return 0;
-        else if(op=='+') return 1;
-        else if(op=='-') return 2;
-        else if(op=='(') return 3;
-        else return 4;
-    }
-    int calculate(string s)
-    {
-        s.push_back('#');
-        int n=s.size();
-        stack<int> stnum;
-        stack<char> stop;
-        stop.push('#');
-        int i=0;
-        while(i<n && (s[i]!='#' || stop.top()!='#'))
+    int calculate(string s) {
+        stack<string> st;
+        int n=s.size(), i=0;
+        while(i<n && !st.empty())
         {
-            while(i<n && s[i]==' ') i++;
-            if(i==n) break;
-            if(isdigit(s[i]))
+            if(s[i]==' ') i++;
+            else if(s[i]=='+' || s[i]=='-' || s[i]=='(') st.push(s[i]);
+            else if(s[i]== ')')
             {
-                int si=i++;
-                while(i<n && isdigit(s[i])) i++;
-                stnum.push(stoi(s.substr(si, i-si)));
+                string num=st.top();
+                st.pop();
+                st.top()=num;
             }
             else
             {
-                char etop=stop.top(), ecur=s[i];
-                char pri=Pri[index(etop)][index(ecur)];
-                if(pri=='<')
+                int s=i;
+                while(i<n && isdig(s[i])) i++;
+                string num=s.substr(s, i-s);
+                if(st.top()=='+')
                 {
-                    stop.push(ecur);
-                    i++;
-                }
-                else if(pri=='=')
-                {
-                    stop.pop();
-                    i++;
-                }
-                else
-                {
-                    int num2=stnum.top();stnum.pop();
-                    int num1=stnum.top();stnum.pop();
-                    char e=stop.top(); stop.pop();
-                    int ans= ( (e=='+') ? (num1+num2) : (num1-num2));
-                    stnum.push(ans);
+                    st.pop();
+                    int ans=stoi(st.top())+stoi(num);
+                    st.top()=to_string(ans);
                 }
             }
         }
-        //cout<<stnum.size()<<endl;
-        return stnum.top();
+        cout<<stoi(st.top())<<endl;
     }
-} S;
+};
 
 int main()
 {
@@ -137,7 +120,12 @@ int main()
     freopen ("out.txt" , "w" , stdout);
 #endif
 */
-    string s="(1+(4+5+2)-3)+(6+8)";
-    cout<<S.calculate(s);
+    cin>>t;
+    for(int ti=1;ti<=t;ti++)
+    {
+        cin
+        printf("Case #%d:\n", ti);
+        cout
+    }
 	return 0;
 }

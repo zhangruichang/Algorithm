@@ -78,21 +78,9 @@ LL MultMod(LL a,LL b,LL MOD)
     }
     return ret;
 }
-int a[60][60], n, t, m, x, y;
+int a[60][60], indegree[60], n, t, m, x, y;
 
 bool v[60];
-
-void dfs(int i)
-{
-    //if(v[i]) return ;
-    v[i]=1;
-    for(int j=1;j<=n;j++)
-    {
-        if(v[j]) continue;
-        if(a[i][j]) dfs(j);
-    }
-}
-
 int main()
 {
 /*
@@ -110,13 +98,44 @@ int main()
             a[x][y]=1;
             a[y][x]=1;
         }
-        int cnt=0;
+        for(int i=1;i<=n;i++)
+        {
+            indegree[i]=0;
+            for(int j=1;j<=n;j++)
+                indegree[i]+=a[i][j];
+        }
+        LL ans=1;
+        int mindeg=INT_MAX, mini=-1;;
         memset(v, 0 ,sizeof v);
         for(int i=1;i<=n;i++)
         {
-            if(!v[i]) dfs(i), cnt++;
+            if(mindeg>indegree[i])
+                mindeg=indegree[i], mini=i;
         }
-        cout<<(1LL<<(n-cnt))<<endl;
+        v[mini]=1;int last=mini;
+        for(int i=2;i<=n;i++)
+        {
+            int mindeg=INT_MAX, mini=-1;;
+            for(int j=1;j<=n;j++)
+            {
+                if(v[j]) continue;
+                if(a[last][j] && mindeg>indegree[j])
+                    mindeg=indegree[j], mini=j;
+            }
+            if(mini!=-1) v[mini]=1, ans*=2;
+            else
+            {
+                int mindeg=INT_MAX;
+                for(int j=1;j<=n;j++)
+                {
+                    if(v[j]) continue;
+                    if(mindeg>indegree[j]) mindeg=indegree[j], mini=j;
+                }
+                v[mini]=1;
+            }
+            last=mini;
+        }
+        cout<<ans<<endl;
     }
 	return 0;
 }

@@ -22,7 +22,7 @@ Contact: zhangruichang112@gmail.com
 #include <unordered_set>
 #include <unordered_map>
 using namespace std;
-const int maxn = 100 + 10;
+const int maxn = 1e5 + 10;
 typedef long long LL;
 typedef unsigned long long ULL;
 //int, -2^31~2^31-1    -2.1*10^9~2.1*10^9 (-2147483648-2147483647)
@@ -83,12 +83,12 @@ int a[maxn], Ki[maxn],n, t, m;
 unordered_set<int> myhash;
 int Find(int x)
 {
-    return a[x]==-1 ? x: (a[x]=Find(a[x]));
+    if(a[x]==-1) return x;
+    else return a[x]=Find(a[x]);
 }
 void Union(int x, int y)
 {
     int rootx=Find(x), rooty=Find(y);
-    if(rootx==rooty) return ;
     a[rootx]=rooty;
 }
 int main()
@@ -105,13 +105,14 @@ int main()
         //v.clear();
         memset(a, -1, sizeof a);
         myhash.clear();
-        int zerocnt=0, cnt=0;
+        int cnt=0;
         for(int i=0;i<n;i++)
         {
             cin>>k;
-            if(!k) zerocnt++;
+            if(!k) cnt++;
             for(int ki=0;ki<k;ki++)
                 cin>>Ki[ki], myhash.insert(Ki[ki]);
+            //for(int ki=1;ki<k;ki++) a[Ki[ki]]=Ki[0];
             for(int ki=0;ki<k;ki++)
             {
                 if(ki>0) Union(Ki[ki-1], Ki[ki]);
@@ -127,7 +128,7 @@ int main()
         {
             if(a[e]==-1) cnt++;
         }
-        cout<<zerocnt+ max(0, cnt-1)<<endl;
+        cout<<cnt-1<<endl;
     }
 	return 0;
 }

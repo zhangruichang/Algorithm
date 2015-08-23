@@ -24,28 +24,35 @@ typedef unsigned long long ULL;
 #define pb push_back
 #define CLR(a,x) memset(a,x,sizeof(a))
 
-bool has8(int x)
-{
-    if(x<0) x=-x;
-    while(x>0)
-    {
-        if(x%10==8) return 1;
-        x/=10;
-    }
-    return 0;
-}
+
 int main()
 {
     int a ,ans;
     while(cin>>a)
     {
-        int i;
-        for(i=1;i<=16;i++)
+        if(a>=0)
         {
-            ans=a+i;
-            if(has8(ans)) break;
+            int tmp=a;
+            int ge=tmp%10;tmp/=10;
+            int shi=tmp%10;
+            if(shi==8) ans= ge==9 ? 9 : 1;
+            else if(shi==7) ans= (ge<=7) ? (8-ge) : (10-ge);
+            else ans= (ge<=7) ? (8-ge) : (18-ge);
         }
-        cout<<i<<endl;
+        else if(a<-8)
+        {
+            int tmp=-a;
+            int ge=tmp%10;tmp/=10;
+            int shi=tmp%10;
+            if(shi==8) ans= (ge==0) ? 2 : 1;
+            else if(shi==9) ans= (ge==9) ? 1 : ge+1;
+            else ans= (ge==9) ? 1 : (ge+2);
+        }
+        else
+        {
+            ans=8-a;
+        }
+        cout<<ans<<endl;
     }
 	return 0;
 }

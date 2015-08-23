@@ -2,7 +2,26 @@
 Author: richard
 Contact: zhangruichang112@gmail.com
 */
-#include <bits/stdc++.h>
+#include<set>
+#include<map>
+#include<list>
+#include<cmath>
+#include<queue>
+#include<stack>
+#include <regex>
+#include<ctime>
+#include<cstdio>
+#include<string>
+#include<vector>
+#include<climits>
+#include<cstdlib>
+#include<cstring>
+#include<fstream>
+#include<sstream>
+#include<iostream>
+#include<algorithm>
+#include <unordered_set>
+#include <unordered_map>
 using namespace std;
 const int maxn = 1e6 + 10;
 typedef long long LL;
@@ -61,8 +80,7 @@ LL MultMod(LL a,LL b,LL MOD)
     return ret;
 }
 int a[maxn], n, t, m;
-
-
+string str;
 int main()
 {
 /*
@@ -71,21 +89,10 @@ int main()
     freopen ("out.txt" , "w" , stdout);
 #endif
 */
-    string str;
-    while(cin>>str)
-    {
-        bool f1=0, f2=0;
-        int n=str.size();
-        vector<int> v1, v2;
-        for(int i=0;i+1<n;i++)
-        {
-            if(!f1 && str[i]=='A' && str[i+1]=='B') v1.push_back(i);
-            else if(!f2 && str[i]=='B' && str[i+1]=='A') v2.push_back(i);
-        }
-        bool ok=0;
-        for(auto e1: v1) for(auto e2: v2)
-            if(abs(e1-e2)>=2) {ok=1;goto L1;}
-    L1: puts(ok?"YES":"NO");
-    }
+    regex re1("[A-Z]*AB[A-Z]*AB[A-Z]*");
+    regex re2("[A-Z]*AB[A-Z]*AB[A-Z]*");
+    cin>>str;
+    puts(regex_match(re1, str) ? "YES" : "NO");
+    //if()
 	return 0;
 }
