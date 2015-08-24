@@ -80,30 +80,24 @@ LL MultMod(LL a,LL b,LL MOD)
 }
 int a[maxn], n, t, m;
 
-
 class Solution {
 public:
-    struct Node{
-        LL x;
-        bool operator<(Node n)const{
-            return x>n.x;
-        }
-    };
-    int nthUglyNumber(int n) {
-        priority_queue<Node> pq;
-        unordered_set<LL> us={1};
-        pq.push({1});
-        //memset(v, 0, sizeof v);
-        //us={1};
-        for(LL i=1;i<n;i++){
-            auto cur=pq.top();pq.pop();
-            if(!us.count(cur.x*2)) pq.push({cur.x*2}), us.insert(cur.x*2);
-            if(!us.count(cur.x*3)) pq.push({cur.x*3}), us.insert(cur.x*3);
-            if(!us.count(cur.x*5)) pq.push({cur.x*5}), us.insert(cur.x*5);
-        }
-        return pq.top().x;
+    bool isStrobogrammatic(string num) {
+      int n=num.size();
+      if(n>=2 && num[0]=='0' || !n) return 0;
+      if( (n & 1) && num[n/2]!='0' && num[n/2]!='1' && num[n/2]!='8') return 0;
+      string left=num.substr(0, n/2), right;
+      if(n&1) right=num.substr(n/2+1, n/2);
+      else right=num.substr(n/2, n/2);
+      reverse(left.begin(), left.end());
+      for(auto& e: left){
+        if(e=='6') e='9';
+        else if(e=='9') e='6';
+        else if(e!='0' && e!='1' && e!='8') return 0;
+      }
+      return left==right;
     }
-} S;
+};
 
 int main()
 {
@@ -113,6 +107,6 @@ int main()
     freopen ("out.txt" , "w" , stdout);
 #endif
 */
-  cout<<S.nthUglyNumber(1000)<<endl;
+
 	return 0;
 }

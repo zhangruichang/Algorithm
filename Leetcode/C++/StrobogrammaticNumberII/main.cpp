@@ -80,29 +80,46 @@ LL MultMod(LL a,LL b,LL MOD)
 }
 int a[maxn], n, t, m;
 
-
-class Solution {
+class Solution{
 public:
-    struct Node{
-        LL x;
-        bool operator<(Node n)const{
-            return x>n.x;
+  string cur;
+  vector<string> ans;
+  int n;
+  char s[5]={'0', '1', '8', '6', '9'};
+  vector<string> findStrobogrammatic(int n_){
+    cur.clear();ans.clear();
+    n=n_;
+    dfs(0);
+    return ans;
+  }
+  void dfs(int i){
+    if(i>=n/2){
+      string rcur=cur;
+      reverse(rcur.begin(), rcur.end());
+      for(auto& e: rcur){
+        if(e=='6') e='9';
+        else if(e=='9') e='6';
+      }
+      if(n & 1){
+        for(int k=0;k<3;k++){
+          string curans=rcur+s[k]+cur;
+          if(curans.size()>=2 && curans[0]=='0') continue;
+          ans.push_back(curans);
         }
-    };
-    int nthUglyNumber(int n) {
-        priority_queue<Node> pq;
-        unordered_set<LL> us={1};
-        pq.push({1});
-        //memset(v, 0, sizeof v);
-        //us={1};
-        for(LL i=1;i<n;i++){
-            auto cur=pq.top();pq.pop();
-            if(!us.count(cur.x*2)) pq.push({cur.x*2}), us.insert(cur.x*2);
-            if(!us.count(cur.x*3)) pq.push({cur.x*3}), us.insert(cur.x*3);
-            if(!us.count(cur.x*5)) pq.push({cur.x*5}), us.insert(cur.x*5);
-        }
-        return pq.top().x;
+      }
+      else{
+        string curans=rcur+cur;
+        if(!(curans.size()>=2 && curans[0]=='0'))
+          ans.push_back(rcur+cur);
+      }
+      return ;
     }
+    for(int j=0;j<5;j++){
+      cur+=s[j];
+      dfs(i+1);
+      cur.pop_back();
+    }
+  }
 } S;
 
 int main()
@@ -113,6 +130,9 @@ int main()
     freopen ("out.txt" , "w" , stdout);
 #endif
 */
-  cout<<S.nthUglyNumber(1000)<<endl;
+  auto ans = S.findStrobogrammatic(6);
+  for(auto e: ans){
+    cout<<e<<endl;
+  }
 	return 0;
 }

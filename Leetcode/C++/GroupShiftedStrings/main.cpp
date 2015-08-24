@@ -78,31 +78,34 @@ LL MultMod(LL a,LL b,LL MOD)
     }
     return ret;
 }
-int a[maxn], n, t, m;
-
 
 class Solution {
 public:
-    struct Node{
-        LL x;
-        bool operator<(Node n)const{
-            return x>n.x;
-        }
-    };
-    int nthUglyNumber(int n) {
-        priority_queue<Node> pq;
-        unordered_set<LL> us={1};
-        pq.push({1});
-        //memset(v, 0, sizeof v);
-        //us={1};
-        for(LL i=1;i<n;i++){
-            auto cur=pq.top();pq.pop();
-            if(!us.count(cur.x*2)) pq.push({cur.x*2}), us.insert(cur.x*2);
-            if(!us.count(cur.x*3)) pq.push({cur.x*3}), us.insert(cur.x*3);
-            if(!us.count(cur.x*5)) pq.push({cur.x*5}), us.insert(cur.x*5);
-        }
-        return pq.top().x;
+  vector<vector<string>> groupStrings(vector<string>& strings){
+    unordered_map<string, int> um;
+    vector<vector<string>> ans;
+    for(auto e: strings){
+      um[e]++;
     }
+    for(auto& he: um){
+      if(!he.se) continue;
+      vector<string> v(he.se, he.fi);
+      he.se=0;
+      string cur=he.fi;
+      for(int i=1;i<26;i++){
+        for(auto& e: cur){
+          if(e<'z') e++;
+          else e='a';
+        }
+        if(!um.count(cur) || !um[cur]) continue;
+        um[cur]--;
+        v.push_back(cur);
+      }
+      sort(v.begin(), v.end());
+      ans.push_back(v);
+    }
+    return ans;
+  }
 } S;
 
 int main()
@@ -113,6 +116,13 @@ int main()
     freopen ("out.txt" , "w" , stdout);
 #endif
 */
-  cout<<S.nthUglyNumber(1000)<<endl;
+  vector<string> v={"abc", "bcd", "acef", "xyz", "az", "ba", "a", "z"};
+  auto ans=S.groupStrings(v);
+  for(auto se: ans){
+    for(auto e: se){
+      cout<<e<<" ";
+    }
+    cout<<endl;
+  }
 	return 0;
 }
