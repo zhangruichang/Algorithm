@@ -98,8 +98,9 @@ public:
           else e='a';
         }
         if(!um.count(cur) || !um[cur]) continue;
-        um[cur]--;
-        v.push_back(cur);
+        for(int j=0;j<um[cur];j++)
+          v.push_back(cur);
+        um[cur]=0;
       }
       sort(v.begin(), v.end());
       ans.push_back(v);
@@ -116,7 +117,7 @@ int main()
     freopen ("out.txt" , "w" , stdout);
 #endif
 */
-  vector<string> v={"abc", "bcd", "acef", "xyz", "az", "ba", "a", "z"};
+  vector<string> v={"abc", "bcd", "acef", "xyz", "az", "ba", "a", "z", "z"};
   auto ans=S.groupStrings(v);
   for(auto se: ans){
     for(auto e: se){
