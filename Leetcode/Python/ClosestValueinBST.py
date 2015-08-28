@@ -7,14 +7,13 @@ class Node:
         self.left = None
         self.right = None
 
-
 class Solution(object):
-    def ClosestinBST(self, root, value):
+    def closestValue(self, root, value):
         gap = abs(root.val - value)
         ans = root
         while root is not None:
             if root.val == value:
-                return root
+                return root.val
             elif value < root.val:
                 if abs(root.val - value) < gap:
                     ans = root
@@ -25,4 +24,4 @@ class Solution(object):
                     ans = root
                     gap = abs(root.val - value)
                 root = root.right
-        return ans
+        return ans.val
