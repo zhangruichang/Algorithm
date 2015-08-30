@@ -66,7 +66,7 @@ int a[maxn], n, t, m;
 
 class Solution{
   public:
-    vector<int> closestBSTII(TreeNode*root, double value, int k){//k<=n, n is number of tree nodes
+    vector<int> closestKValues(TreeNode*root, double value, int k){//k<=n, n is number of tree nodes
       if(!root) return {};
       v.clear();value_=value;
       dfs(root);

@@ -26,37 +26,34 @@ int getint(){
 int GCD(int m, int n){
     return !m ? n : GCD(n%m, m);
 }
+
 int a[maxn], n, t, m;
 
 class Solution {
 public:
-  bool v[10000];
-  unordered_map<int, bool> edge[10000];
-  int n_;
-  bool validTree(int n, vector<pair<int, int>>& edges) {
-    if(!n) return 1;n_=n;
-    for(int i=0;i<n;i++) edge[i].clear();
-    for(auto e: edges){
-      edge[e.fi][e.se]=1;
-      edge[e.se][e.fi]=1;
-    }
-    memset(v, 0 , sizeof v);
-    bool ans = dfs(0);
-    for(int i=0;i<n_;i++){
-      if(!v[i]) return 0;
-    }
+  vector<vector<int>> ans;
+  vector<int> cur;
+  int  n ;
+  vector<vector<int>> getFactors(int n_) {
+    ans.clear();cur.clear();
+    if (n_ == 1) return {};
+    n = n_;
+    dfs(n, 1);
     return ans;
   }
-  bool dfs(int i){
-    if(v[i]) return 0;
-    v[i]=1;
-    for(auto& e: edge[i]){
-      if(!e.se) continue;
-      e.se=0;
-      edge[e.fi][i]=0;
-      if(!dfs(e.fi)) return 0;
+  void dfs(int now, int pro){
+    if(now == 1) {
+      ans.push_back(cur);
+      return ;
     }
-    return 1;
+    int last= (!cur.empty()) ? cur.back() : 2;
+    for(int i=last;i < n;i++){
+      if(pro * i > n) return ;
+      if(now % i) continue;
+      cur.push_back(i);
+      dfs(now/i, pro*i);
+      cur.pop_back();
+    }
   }
 } S;
 
@@ -68,8 +65,12 @@ int main()
     freopen ("out.txt" , "w" , stdout);
 #endif
 */
-  int n=5;
-  vector<pii> edges={ {0,1},{0,2},{2,3},{2,4}};
-  cout<<S.validTree(n, edges)<<endl;
+  auto ans = S.getFactors(2);
+  for(auto se: ans){
+    for(auto e: se){
+      cout<<e<<" ";
+    }
+    cout<<endl;
+  }
 	return 0;
 }
