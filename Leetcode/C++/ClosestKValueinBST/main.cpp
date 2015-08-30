@@ -63,12 +63,6 @@ LL MultMod(LL a,LL b,LL MOD)
 }
 int a[maxn], n, t, m;
 
-/*
-struct TreeNode{
-  int val;
-  TreeNode*left, *right;
-};
-*/
 
 class Solution{
   public:
@@ -99,7 +93,7 @@ class Solution{
     void dfs(TreeNode*root){
       if(!root) return ;
       dfs(root->left);
-      v.push_back({root->val-value_, root});
+      v.push_back({abs(root->val-value_), root});
       dfs(root->right);
     }
 };
