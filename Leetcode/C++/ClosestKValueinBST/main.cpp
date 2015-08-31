@@ -63,16 +63,10 @@ LL MultMod(LL a,LL b,LL MOD)
 }
 int a[maxn], n, t, m;
 
-/*
-struct TreeNode{
-  int val;
-  TreeNode*left, *right;
-};
-*/
 
 class Solution{
   public:
-    vector<int> closestBSTII(TreeNode*root, double value, int k){//k<=n, n is number of tree nodes
+    vector<int> closestKValues(TreeNode*root, double value, int k){//k<=n, n is number of tree nodes
       if(!root) return {};
       v.clear();value_=value;
       dfs(root);
@@ -99,7 +93,7 @@ class Solution{
     void dfs(TreeNode*root){
       if(!root) return ;
       dfs(root->left);
-      v.push_back({root->val-value_, root});
+      v.push_back({abs(root->val-value_), root});
       dfs(root->right);
     }
 };
