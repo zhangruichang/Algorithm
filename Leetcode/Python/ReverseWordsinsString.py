@@ -6,7 +6,13 @@ class Solution:
         #print [word[::-1] for word in s[::-1].split()]
         return ' '.join([word[::-1] for word in s[::-1].split()])
 
-S = Solution()
-s = "  Huang   If    Fu  "
+    def reverseWords(self, s):
+        s[:] = ' '.join(''.join(s).split()[::-1])
 
-print S.reverse_words(s)
+S = Solution()
+
+s='I am Zhang Ruichang'
+list_s = [i for i in s]
+print list_s
+S.reverseWords(list_s)
+print list_s
