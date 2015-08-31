@@ -3,7 +3,7 @@ class Solution:
     # @param s, a string
     # @return a string
     def reverse_words(self, s):
-        print [word[::-1] for word in s[::-1].split()]
+        #print [word[::-1] for word in s[::-1].split()]
         return ' '.join([word[::-1] for word in s[::-1].split()])
 
 S = Solution()
