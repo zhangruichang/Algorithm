@@ -8,45 +8,21 @@
 using namespace std;
 class Solution {
 public:
-	bool dp[10000][10000];
-    bool wordBreak(string s, unordered_set<string> &dict) {
-		int slen=s.size();
-		for(int i=0;i<slen;i++)
-			memset(dp[i],0,sizeof(bool)*slen);
-		for(int i=0;i<s.size();i++)
-		{
-			for(auto j=dict.begin();j!=dict.end();++j)
-			{
-				//string tmp=*j;
-				if((string)s[i] == (*j)) 
-				{
-					dp[i][i]=1;
-					break;
-				}
+	bool wordBreak(string s, unordered_set<string> &dict){
+		int n = s.size();
+		bool dp[n+1];
+		memset(dp, 0 ,sizeof dp);
+		dp[0]=1;
+		for(int i=1;i<=n;i++){
+			for(int j=0;j<i;j++){
+				dp[i] = dp[i] || dp[j] && dict.count(s.substr(j, i-j));
 			}
 		}
-		for(int len=2;len<=s.size();len++)
-		{
-			for(int i=0;i<s.size();i++)
-			{
-				int j=i+len-1;
-				if(j>=s.size())
-					continue;
-				for(int k=i;k<j;k++)
-				{
-					if(dp[i][k]&&dp[k+1][j])
-					{
-						dp[i][j]=1;
-						break;
-					}
-				}
-			}
-		}
-		return dp[0][slen-1];
-    }
+		return dp[n];
+	}
 };
 
-/*
+
 int main()
 {
 	Solution S;
@@ -57,4 +33,4 @@ int main()
 	cout<<S.wordBreak(s,dict)<<endl;
 	return 0;
 }
-*/
+

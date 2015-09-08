@@ -33,12 +33,10 @@ public:
         if(n==0) return 0;
         w=word;
         memset(visit,0,sizeof(visit));
-        for(int i=0;i<m;i++)
-        {
-          for(int j=0;j<n;j++)
-          {
-              if(dfs(i,j,0,board))
-                return 1;
+        for(int i=0;i<m;i++){
+        	for(int j=0;j<n;j++){
+          	if(dfs(i,j,0,board))
+            	return 1;
           }
         }
         return 0;
