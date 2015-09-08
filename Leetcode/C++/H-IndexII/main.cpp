@@ -30,14 +30,25 @@ int GCD(int m, int n){
 
 class Solution {
 public:
-  int hIndex(vector<int>& a) {
-    int n=a.size();if(!n) return 0;
-    for(int i=n-1;i>=0;i--){
-      if(n-i+1>=a[i]) return min(a[i], n-i);
+  int hIndex(vector<int>& c) {
+    int n = c.size();
+    if(!n) return 0;
+    int low = 0, high = c[n-1];
+    while(low<=high){
+      cout<<"["<<low<<" "<<high<<"]"<<endl;
+      if(low == high) return low;
+      if(low+1==high){
+          int l = lower_bound(c.begin(), c.end(), high) - c.begin();
+          if(n-l>=high) return high;
+          return low;
+      }
+      int mid = (low+high) >> 1;
+      int l = lower_bound(c.begin(), c.end(), mid)-c.begin();
+      if(n-l>=mid) low=mid;
+      else high=mid-1;
     }
-    return n
-  }
-};
+  };
+} S;
 
 int main()
 {
@@ -47,11 +58,7 @@ int main()
     freopen ("out.txt" , "w" , stdout);
 #endif
 */
-  cin>>t;
-  for(int ti=1;ti<=t;ti++){
-      //cin
-      printf("Case #%d:\n", ti);
-      //cout
-  }
+  vector<int> c={100};
+  S.hIndex(c);
 	return 0;
 }
