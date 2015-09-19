@@ -114,6 +114,13 @@ public:
     }
     return numst.top();
   }
+  int stoi(string s){
+    int num=0;
+    for(auto e: s){
+      num=num*10+e-'0';
+    }
+    return num;
+  }
 
   int cal(int num1, string& e, int num2){
     if(e[0]=='+') return num1+num2;
